@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+# @Author: Your name
+# @Date:   2026-05-14 14:58:40
+# @Last Modified by:   Your name
+# @Last Modified time: 2026-05-20 10:01:32
 """
 Seed PostgreSQL with all TransitFlow mock data from train-mock-data/.
 
@@ -60,12 +65,58 @@ def seed_metro_stations(cur):
     # Each item in `data` is a dict — inspect the JSON to see available fields.
     pass
 
+    rows =[
+        (
+            s["station_id"],
+            s["name"],
+            s["is_interchange_metro"],
+            s["is_interchange_national_rail"],
+            s.get("interchange_national_rail_station_id")
+        )
+        for s in data
+        
+    ]
+    n = insert_many(
+        cur,
+        table="metro_stations",
+        columns=[
+            "station_id",
+            "name",
+            "is_interchange_metro",
+            "is_interchange_national_rail",
+            "interchange_national_rail_station_id"
+        ],
+        rows=rows
+    )
 
 def seed_national_rail_stations(cur):
     data = load("national_rail_stations.json")
     # TODO: Design your table schema, then implement the INSERT logic here.
     pass
 
+    rows=[
+        (
+            s["station_id"],
+            s["name"],
+            s["is_interchange_national_rail"],
+            s["is_interchange_metro"],
+            s.get("interchange_metro_station_id")
+        )
+        for s in data
+    ]
+    
+    n = insert_many(
+        cur,
+        table="national_rail_stations",
+        columns=[
+            "station_id",
+            "name",
+            "is_interchange_national_rail",
+            "is_interchange_metro",
+            "interchange_metro_station_id"
+        ],
+        rows=rows
+    )
 
 def seed_metro_schedules(cur):
     data = load("metro_schedules.json")

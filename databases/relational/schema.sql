@@ -2,7 +2,7 @@
  * @Author: Your name
  * @Date:   2026-05-14 14:58:40
  * @Last Modified by:   Your name
- * @Last Modified time: 2026-05-20 07:44:00
+ * @Last Modified time: 2026-05-20 09:48:19
  */
 -- ============================================================
 --  TransitFlow PostgreSQL Schema
@@ -470,4 +470,5 @@ CREATE TABLE IF NOT EXISTS policy_documents (
 );
 
 -- Index for fast cosine similarity search
-CREATE INDEX IF NOT EXISTS ON policy_documents USING hnsw (embedding vector_cosine_ops);
+CREATE INDEX IF NOT EXISTS idx_policy_documents_embedding
+    ON policy_documents USING hnsw (embedding vector_cosine_ops);
