@@ -319,6 +319,8 @@ def query_interchange_path(origin_id: str, destination_id: str) -> dict:
         if leg["relationship"] == "INTERCHANGE_TO"
     ]
     return route
+
+
 def query_delay_ripple(delayed_station_id: str, hops: int = 2) -> list[dict]:
     """
     Find all stations within N hops of a delayed or disrupted station.
